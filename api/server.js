@@ -1,5 +1,7 @@
 const express = require('express')
 
+const projectRoute = require('./projects/project-route')
+
 const server = express()
 server.use(express.json())
 
@@ -13,6 +15,7 @@ const logger = (req, res, next) => {
 server.use(logger)
 
 // Route handling
+server.use('/api/projects', projectRoute)
 
 // Hello world test
 server.get('/', (req, res) => {
