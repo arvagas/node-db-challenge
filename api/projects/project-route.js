@@ -8,7 +8,16 @@ const router = express.Router()
 router.get('/', (req, res) => {
   Projects.find()
     .then(projs => res.json(projs))
-    .catch(err => res.status(500).json({ message: 'error retrieving all porjects' }))
+    .catch(err => res.status(500).json({ message: 'error retrieving all projects' }))
+})
+
+// stretch
+router.get('/:id', (req, res) => {
+  const { id } = req.params
+
+  Projects.findByIdVerbose(id)
+    .then(proj => res.json(proj))
+    .catch(err => res.status(500).json({ message: 'error retrieving project' }))
 })
 
 // @@@@@@@@@@ POST request @@@@@@@@@@
@@ -16,8 +25,8 @@ router.post('/', (req, res) => {
   const newProj = req.body
 
   Projects.add(newProj)
-    .then(projs => res.json(projs))
-    .catch(err => res.status(500).json({ message: 'error retrieving all projects' }))
+    .then(proj => res.json(proj))
+    .catch(err => res.status(500).json({ message: 'error adding project' }))
 })
 
 module.exports = router
