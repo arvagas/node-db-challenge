@@ -1,6 +1,7 @@
 const express = require('express')
 
 const Tasks = require('./task-model')
+const mw = require('./task-middleware')
 
 const router = express.Router()
 
@@ -12,7 +13,7 @@ router.get('/', (req, res) => {
 })
 
 // @@@@@@@@@@ POST request @@@@@@@@@@
-router.post('/', (req, res) => {
+router.post('/', mw.validateProjId, (req, res) => {
   const newTask = req.body
 
   Tasks.add(newTask)
